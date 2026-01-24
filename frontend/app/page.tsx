@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -77,12 +78,14 @@ export default function Home() {
             </p>
 
             <div className="flex items-center justify-center gap-4 pt-4">
-              <Button
-                size="lg"
-                className="bg-black dark:bg-white text-white dark:text-black text-lg px-8 py-6 hover:opacity-80 transition-all"
-              >
-                Get Started
-              </Button>
+              <Link href="/features">
+                <Button
+                  size="lg"
+                  className="bg-black dark:bg-white text-white dark:text-black text-lg px-8 py-6 hover:opacity-80 transition-all"
+                >
+                  Get Started
+                </Button>
+              </Link>
               <Button
                 size="lg"
                 variant="outline"
