@@ -1,0 +1,21 @@
+[package]
+name = "sentinel-amm-demo"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+soroban-sdk = "21.7.7"
+
+[dev-dependencies]
+soroban-sdk = { version = "21.7.7", features = ["testutils"] }
+
+[features]
+testutils = ["soroban-sdk/testutils"]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1

@@ -1,0 +1,14 @@
+D:\sentinel_local\Sentinel\amm-demo\target\release\deps\serde-d4529166b104b615.d: C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs D:\sentinel_local\Sentinel\amm-demo\target\release\build\serde-26381433cfd5c1a3\out/private.rs
+
+D:\sentinel_local\Sentinel\amm-demo\target\release\deps\libserde-d4529166b104b615.rlib: C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs D:\sentinel_local\Sentinel\amm-demo\target\release\build\serde-26381433cfd5c1a3\out/private.rs
+
+D:\sentinel_local\Sentinel\amm-demo\target\release\deps\libserde-d4529166b104b615.rmeta: C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs D:\sentinel_local\Sentinel\amm-demo\target\release\build\serde-26381433cfd5c1a3\out/private.rs
+
+C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs:
+C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs:
+C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs:
+C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:
+C:\Users\Sushovan\ Ghosh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs:
+D:\sentinel_local\Sentinel\amm-demo\target\release\build\serde-26381433cfd5c1a3\out/private.rs:
+
+# env-dep:OUT_DIR=D:\\sentinel_local\\Sentinel\\amm-demo\\target\\release\\build\\serde-26381433cfd5c1a3\\out

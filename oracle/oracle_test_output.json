@@ -1,0 +1,11 @@
+{
+  "contract_id": "CD7AHSYFDSSSNN3NVWPI654KM2CR3NX5C23LSAXFDIF57HTAOW2VYBTU",
+  "oracle_pubkey": "93ebb785b8c8427ec32844881316e0463ad22438d8153a9f0cdb0b4c376d923c",
+  "payload": {
+    "wallet": "GBTEST1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "risk_score": 87,
+    "timestamp": 1769275529
+  },
+  "canonical_json": "{\"risk_score\":87,\"timestamp\":1769275529,\"wallet\":\"GBTEST1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ\"}",
+  "signature": "3ba01f9353fea0cdde5e294bd606c8780d3036ce0adb5f4665260e9bd17810dfe86a9bcffc58162af41967539f9d3edae7be8107ba1cdaf06ef0737d5407080c"
+}
