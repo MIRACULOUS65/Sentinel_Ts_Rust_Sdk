@@ -99,7 +99,8 @@ export default function FeaturesPage() {
                                     </CardItem>
                                     <CardItem
                                         translateZ={20}
-                                        as="button"
+                                        as={idx === 0 ? Link : "button"}
+                                        href={idx === 0 ? "/features/service-1" : undefined}
                                         className="px-4 py-2 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-bold hover:opacity-80 transition-opacity"
                                     >
                                         Learn More →
