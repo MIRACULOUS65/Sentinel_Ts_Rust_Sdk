@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+networkx
+httpx
+pydantic
+python-dotenv
+scipy
+matplotlib
