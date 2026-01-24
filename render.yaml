@@ -1,0 +1,15 @@
+# Render Deployment Configuration
+# This file tells Render how to deploy Service 1 from the aiml/service1_horizon folder
+
+services:
+  - type: web
+    name: stellar-horizon-fetcher
+    runtime: python
+    rootDir: aiml/service1_horizon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn horizon_service:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: HORIZON_API_URL
+        value: https://horizon-testnet.stellar.org
+    healthCheckPath: /health
+
