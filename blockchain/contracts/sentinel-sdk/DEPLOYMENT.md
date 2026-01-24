@@ -1,18 +1,23 @@
 # Sentinel SDK Deployment Info
 
-## Contract Deployment
+## Contract Deployment (V2 - With Signature Verification)
 
-**Contract ID**: `CAR3MXRMRSOJLUNCP4L36M4VWBMGWJT5DPBAYEKQYJZEW7VQ6WQPZRDO`
+**Contract ID**: `CD7AHSYFDSSSNN3NVWPI654KM2CR3NX5C23LSAXFDIF57HTAOW2VYBTU`
 
 **Network**: Stellar Testnet
 
-**WASM Hash**: `f35b8e6697ffbe8aee91b067a1f448f36659c07278a01dae433ad4c8d0296847`
+**WASM Hash**: `3e50ad76dc7d1a86b935378e07a0ee9582884a74a1e081309218e44d4dcfba74`
 
 **Deployed By**: `sentinel-deployer`
 
-**Transaction**: https://stellar.expert/explorer/testnet/tx/e99cd4e8f0d2f0f3ad20fc3ab6ea39cd1dd6730449bb785ff3d5796b8511b19f
+**Changes from V1**:
+- ✅ Implemented production Ed25519 signature verification
+- ✅ Canonical JSON serialization matching Oracle
+- ✅ no_std compatible cryptography
 
-**Contract Explorer**: https://lab.stellar.org/r/testnet/contract/CAR3MXRMRSOJLUNCP4L36M4VWBMGWJT5DPBAYEKQYJZEW7VQ6WQPZRDO
+**Transaction**: https://stellar.expert/explorer/testnet/tx/f5ce69ea73faa84348051217fb47ee8e48135e6314d453f7a21dc795255e0db5
+
+**Contract Explorer**: https://lab.stellar.org/r/testnet/contract/CD7AHSYFDSSSNN3NVWPI654KM2CR3NX5C23LSAXFDIF57HTAOW2VYBTU
 
 ## Oracle Public Key
 

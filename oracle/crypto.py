@@ -12,7 +12,8 @@ import json
 from nacl.signing import SigningKey, VerifyKey
 from nacl.encoding import HexEncoder
 
-KEYS_DIR = "keys"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+KEYS_DIR = os.path.join(BASE_DIR, "keys")
 PRIVATE_KEY_FILE = os.path.join(KEYS_DIR, "oracle_private.key")
 PUBLIC_KEY_FILE = os.path.join(KEYS_DIR, "oracle_public.key")
 
