@@ -1,30 +1,19 @@
 services:
-  # Service 1: Sentinel (Horizon Monitor)
-  - type: worker
-    name: sentinel-core
-    env: python
-    buildCommand: pip install -r aiml/service1_horizon/requirements.txt
-    startCommand: python aiml/service1_horizon/main.py
-    rootDir: .
-
-  # Service 2: Graph Engine (FastAPI)
+  # Service 1: Horizon Data Fetcher (FastAPI)
   - type: web
-    name: sentinel-graph
+    name: sentinel-horizon-fetcher # Renamed to match your deploy if possible, or new one
     env: python
-    buildCommand: pip install -r aiml/service2_graph/requirements.txt
-    startCommand: uvicorn aiml.service2_graph.graph_service:app --host 0.0.0.0 --port $PORT
+    rootDir: aiml/service1_horizon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn horizon_service:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.1
+      - key: ML_SERVICE_URL
+        value: https://sentinel-aiml.onrender.com
       - key: HORIZON_API_URL
         value: https://horizon-testnet.stellar.org
 
-  # Service 3: Risk AI Gateway (FastAPI)
-  - type: web
-    name: sentinel-risk-ai
-    env: python
-    buildCommand: pip install -r aiml/service3_risk/requirements.txt
-    startCommand: uvicorn aiml.service3_risk.main:app --host 0.0.0.0 --port $PORT
+  # Service 2: ML Engine exists in aiml/render_ml.yaml or managed separately
+  # We focus on connecting Service 1 to it here.
 
   # Frontend: Dashboard
   - type: web
