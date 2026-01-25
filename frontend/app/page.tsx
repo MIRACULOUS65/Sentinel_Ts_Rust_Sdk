@@ -33,9 +33,11 @@ export default function Home() {
             <a href="#" className="text-sm font-medium hover:opacity-60 transition-opacity">
               Docs
             </a>
-            <Button variant="default" className="bg-black dark:bg-white text-white dark:text-black">
-              Launch App
-            </Button>
+            <Link href="/dashboard">
+              <Button variant="default" className="bg-black dark:bg-white text-white dark:text-black">
+                Launch Console
+              </Button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -78,12 +80,12 @@ export default function Home() {
             </p>
 
             <div className="flex items-center justify-center gap-4 pt-4">
-              <Link href="/features">
+              <Link href="/dashboard">
                 <Button
                   size="lg"
                   className="bg-black dark:bg-white text-white dark:text-black text-lg px-8 py-6 hover:opacity-80 transition-all"
                 >
-                  Get Started
+                  Launch Console
                 </Button>
               </Link>
               <Button

@@ -18,6 +18,7 @@ load_dotenv()
 
 # Configuration
 HORIZON_API_URL = os.getenv("HORIZON_API_URL", "https://horizon-testnet.stellar.org")
+ML_SERVICE_URL = os.getenv("ML_SERVICE_URL", "http://localhost:8084") # Service 2
 CACHE_TTL_SECONDS = 10
 MAX_RETRIES = 3
 RETRY_DELAY = 1
@@ -498,6 +499,103 @@ async def get_wallet_with_links(address: str):
         "explorer_url": get_stellar_expert_url("account", address),
         "network": get_network_type()
     }
+
+
+@app.get("/analyze/wallet/{address}")
+async def analyze_wallet(address: str):
+    """
+    Fetch wallet history and analyze risk via ML Engine (Service 2)
+    
+    1. Fetches recent transactions for the wallet
+    2. Sends data to ML Service (Ingest) to seed state
+    3. Returns AI-generated risk score
+    """
+    # 1. Fetch transactions
+    try:
+        tx_response = await get_wallet_transactions(address, limit=50)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching transactions: {str(e)}")
+
+    # 2. Seed ML Service with these transactions
+    # This ensures Service 2 "knows" about the wallet's history to detect patterns
+    async with httpx.AsyncClient() as client:
+        # Sort by time ascending so state builds correctly
+        transactions = sorted(
+            tx_response["transactions"], 
+            key=lambda x: x.created_at
+        )
+
+        for tx in transactions:
+            try:
+                # Map Horizon TX to ML Input
+                # Note: This is a simplification. Real Horizon TXs have ops. 
+                # We'll grab the first relevant operation or defaults.
+                
+                ops = tx.operations
+                amount = 0.0
+                to_addr = "unknown"
+                
+                if ops:
+                    op = ops[0]
+                    if op.amount:
+                        amount = float(op.amount)
+                    if op.to:
+                        to_addr = op.to
+                
+                payload = {
+                    "tx_hash": tx.id,
+                    "timestamp": datetime.fromisoformat(tx.created_at.replace('Z', '+00:00')).timestamp(),
+                    "from_addr": tx.source_account,
+                    "to_addr": to_addr,
+                    "amount": amount,
+                    "asset_type": "native"
+                }
+                
+                # Push to /ingest (fire and forget-ish, or await if we want strict order)
+                # We await to ensure state is ready before asking for risk
+                await client.post(f"{ML_SERVICE_URL}/ingest", json=payload)
+                
+            except Exception as e:
+                print(f"Failed to ingest tx {tx.id}: {e}")
+                continue
+
+        # 3. Get Final Risk Score
+        try:
+            ml_url = f"{ML_SERVICE_URL}/risk/{address}"
+            response = await client.get(ml_url)
+            
+            if response.status_code == 200:
+                ml_data = response.json()
+                return {
+                    "wallet": address,
+                    "risk_analysis": ml_data,
+                    "transaction_summary": {
+                        "count": tx_response["count"],
+                        "latest": tx_response["transactions"][0].created_at if tx_response["transactions"] else None
+                    }
+                }
+            else:
+                 return {
+                     "wallet": address,
+                     "risk_analysis": {
+                         "risk_score": 0,
+                         "reason": f"Analysis failed (Service 2 returned {response.status_code})",
+                         "status": "partial"
+                     },
+                     "debug": f"ML Service returned {response.status_code}"
+                 }
+                 
+        except Exception as e:
+            return {
+                "wallet": address,
+                "risk_analysis": {
+                    "risk_score": 0,
+                    "reason": "ML Service Unavailable",
+                    "error": str(e)
+                }
+            }
 
 
 @app.get("/")
