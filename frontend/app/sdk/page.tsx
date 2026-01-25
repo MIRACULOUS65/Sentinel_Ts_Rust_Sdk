@@ -152,7 +152,7 @@ pub fn deposit(env: Env, user: Address, amount: i128) {
                             {copied === "code" ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3" />}
                         </button>
                     </div>
-                    <div className="h-[280px] w-full overflow-y-auto rounded-xl border border-white/10 bg-[#0d161d] p-4 text-[10px] sm:text-xs leading-relaxed font-mono shadow-inner custom-scrollbar">
+                    <div className="h-[280px] w-full overflow-y-auto rounded-xl border border-white/10 bg-[#0d161d] p-4 text-[10px] sm:text-xs leading-relaxed font-mono shadow-inner [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                         <pre className="text-blue-100/80 font-mono">
                             {activeTab === "typescript" ? TS_CODE : RUST_CODE}
                         </pre>
@@ -171,16 +171,32 @@ pub fn deposit(env: Env, user: Address, amount: i128) {
             colSpan: 1,
             children: (
                 <div className="mt-6 space-y-4 border-t border-white/10 pt-4">
-                    <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-3 flex items-start gap-3">
+                    <a
+                        href={activeTab === "typescript" ? "https://www.npmjs.com/package/@miraculous65/sentinel-risk-sdk" : "https://crates.io/dashboard"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`block border rounded-lg p-3 flex items-start gap-3 transition-colors ${activeTab === "typescript"
+                            ? "bg-blue-500/5 border-blue-500/20 hover:bg-blue-500/10"
+                            : "bg-orange-500/5 border-orange-500/20 hover:bg-orange-500/10"
+                            }`}
+                    >
                         <div className="mt-0.5 relative">
-                            <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                            <span className={`absolute inline-flex h-2 w-2 animate-ping rounded-full opacity-75 ${activeTab === "typescript" ? "bg-blue-400" : "bg-orange-400"
+                                }`}></span>
+                            <span className={`relative inline-flex h-2 w-2 rounded-full ${activeTab === "typescript" ? "bg-blue-500" : "bg-orange-500"
+                                }`}></span>
                         </div>
                         <div>
-                            <p className="text-xs font-semibold text-emerald-400">Live on Soroban Testnet</p>
-                            <p className="text-[10px] text-emerald-400/60 mt-0.5">Updated 4 mins ago</p>
+                            <p className={`text-xs font-semibold ${activeTab === "typescript" ? "text-blue-400" : "text-orange-400"
+                                }`}>
+                                {activeTab === "typescript" ? "Verified on NPM" : "Published on Crates.io"}
+                            </p>
+                            <p className={`text-[10px] mt-0.5 ${activeTab === "typescript" ? "text-blue-400/60" : "text-orange-400/60"
+                                }`}>
+                                Latest Release: v0.1.0-alpha
+                            </p>
                         </div>
-                    </div>
+                    </a>
 
                     <div className="space-y-2">
                         <p className="text-[10px] uppercase tracking-wider text-white/40 font-bold">Contract ID</p>
@@ -195,6 +211,22 @@ pub fn deposit(env: Env, user: Address, amount: i128) {
                                 {copied === "contract" ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3" />}
                             </button>
                         </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-white/5">
+                        <a
+                            href={activeTab === "typescript" ? "https://www.npmjs.com/package/@miraculous65/sentinel-risk-sdk" : "https://crates.io/dashboard"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-between group/link"
+                        >
+                            <span className="text-[10px] uppercase tracking-wider text-white/40 font-bold group-hover/link:text-white/60 transition-colors">
+                                Source Code
+                            </span>
+                            <span className="text-[10px] text-white/20 group-hover/link:text-white/60 transition-colors">
+                                {activeTab === "typescript" ? "NPM ↗" : "Crates.io ↗"}
+                            </span>
+                        </a>
                     </div>
                 </div>
             )
