@@ -10,6 +10,7 @@ import {
     Zap,
     Book,
     LayoutDashboard,
+    Terminal,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -22,13 +23,18 @@ const navItems = [
     { label: "Console", icon: LayoutDashboard, href: "/dashboard" },
 ];
 
-const MOBILE_LABEL_WIDTH = 90; // Slightly wider for longer labels like "How it Works"
-
 type BottomNavBarProps = {
     className?: string;
     defaultIndex?: number;
     stickyBottom?: boolean;
 };
+
+const consoleItems = [
+    { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
+    { label: "Oracle", icon: Shield, href: "/oracle" },
+    { label: "ML Engine", icon: Zap, href: "/ml-engine" },
+    { label: "SDK", icon: Terminal, href: "/sdk" },
+];
 
 export function BottomNavBar({
     className,
@@ -38,12 +44,15 @@ export function BottomNavBar({
     const pathname = usePathname();
     const [activeIndex, setActiveIndex] = useState(defaultIndex);
 
+    const isConsole = ["/dashboard", "/oracle", "/ml-engine", "/sdk"].some(path => pathname?.startsWith(path));
+    const items = isConsole ? consoleItems : navItems;
+
     useEffect(() => {
-        const index = navItems.findIndex(item => item.href === pathname);
+        const index = items.findIndex(item => item.href === pathname);
         if (index !== -1) {
             setActiveIndex(index);
         }
-    }, [pathname]);
+    }, [pathname, items]);
 
     return (
         <div className={cn(
@@ -61,7 +70,7 @@ export function BottomNavBar({
                     className
                 )}
             >
-                {navItems.map((item, idx) => {
+                {items.map((item, idx) => {
                     const Icon = item.icon;
                     const isActive = activeIndex === idx;
 
