@@ -11,8 +11,9 @@ import { Loader2, CheckCircle2, ShieldAlert, ShieldCheck, ArrowRight, Lock } fro
 // const SERVICE_1_URL = "http://localhost:8000";
 // const ORACLE_URL = "http://localhost:8001";
 
-const SERVICE_1_URL = "https://stellar-horizon-fetcher.onrender.com";
-const ORACLE_URL = "https://sentinel-oracle.onrender.com";
+const SERVICE_1_URL = "https://sentinel-653o.onrender.com";
+// const ORACLE_URL = "https://sentinel-oracle-deployed.onrender.com"; // Future
+const ORACLE_URL = "http://localhost:8001"; // Keep local until Oracle is deployed
 
 // Decision Logic (Mimicking SDK)
 const getSDKDecision = (score: number) => {
