@@ -44,10 +44,19 @@ def generate_keypair():
 
 
 def load_keys():
-    """Load existing keypair from files."""
+    """Load existing keypair from Environment Variables or files."""
+    
+    # Priority 1: Environment Variables (for Render/Cloud)
+    env_private = os.getenv("ORACLE_PRIVATE_KEY")
+    if env_private:
+        signing_key = SigningKey(env_private, encoder=HexEncoder)
+        verify_key = signing_key.verify_key
+        return signing_key, verify_key
+
+    # Priority 2: Files (Local Development)
     if not os.path.exists(PRIVATE_KEY_FILE) or not os.path.exists(PUBLIC_KEY_FILE):
         raise FileNotFoundError(
-            f"Keypair not found. Run 'python crypto.py --generate-keys' first."
+            f"Keypair not found. Run 'python crypto.py --generate-keys' first or set ORACLE_PRIVATE_KEY."
         )
     
     # Load private key
