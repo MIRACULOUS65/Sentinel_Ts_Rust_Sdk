@@ -1,0 +1,16 @@
+[package]
+name = "sentinel-contract-sdk-miraculous65"
+version = "0.1.0"
+edition = "2021"
+description = "Soroban contract bindings for Sentinel Risk Engine"
+license = "MIT"
+repository = "https://github.com/MIRACULOUS65/Sentinel"
+
+[dependencies]
+soroban-sdk = "21.0.0"
+
+[dev-dependencies]
+soroban-sdk = { version = "21.0.0", features = ["testutils"] }
+
+[lib]
+path = "lib.rs"
