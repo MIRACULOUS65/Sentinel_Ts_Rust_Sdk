@@ -1,7 +1,7 @@
-﻿pub const WASM: &[u8] = soroban_sdk::contractfile!(
-    file = "target/wasm32v1-none/release/sentinel_sdk.wasm", sha256 =
-    "f35b8e6697ffbe8aee91b067a1f448f36659c07278a01dae433ad4c8d0296847"
-);
+﻿// pub const WASM: &[u8] = soroban_sdk::contractfile!(
+//    file = "sentinel_sdk.wasm", sha256 =
+//    "f35b8e6697ffbe8aee91b067a1f448f36659c07278a01dae433ad4c8d0296847"
+// );
 
 /// Ed25519 public key type (32 bytes)
 pub type PublicKey = soroban_sdk::BytesN<32>;
@@ -9,7 +9,6 @@ pub type PublicKey = soroban_sdk::BytesN<32>;
 /// Ed25519 signature type (64 bytes)
 pub type Signature = soroban_sdk::BytesN<64>;
 
-#[soroban_sdk::contractargs(name = "Args")]
 #[soroban_sdk::contractclient(name = "Client")]
 pub trait Contract {
     fn get_risk(
