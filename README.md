@@ -2,7 +2,7 @@
 
 > **Decentrallized "Credit Score" and Fraud Prevention Layer for the Stellar Network**
 
-Sentinel connects **Off-Chain AI** with **On-Chain Enforcement**, where it enables smart contracts to assess wallet risk in real-time using Soroban.
+Sentinel connects **Off-Chain AI** with **On-Chain Enforcement**, enabling smart contracts to assess wallet risk in real-time using Soroban.
 
 ---
 
