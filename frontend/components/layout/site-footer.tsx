@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export function SiteFooter() {
@@ -15,10 +17,15 @@ export function SiteFooter() {
             <div className="max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-4 gap-8 mb-8">
                     <div>
-                        <div className="flex items-center space-x-2 mb-4">
-                            {/* Simple logo placeholder if no image */}
-                            <div className="w-6 h-6 bg-black dark:bg-white rounded"></div>
-                            <span className="font-bold">SENTINEL</span>
+                        <div className="flex items-center space-x-3 mb-4">
+                            <Image
+                                src="/sentinel-logo.jpeg"
+                                alt="Sentinel"
+                                width={36}
+                                height={36}
+                                className="rounded-lg"
+                            />
+                            <span className="font-bold text-lg tracking-tight">SENTINEL</span>
                         </div>
                         <p className="text-sm text-neutral-600 dark:text-neutral-400">
                             Autonomous AI Risk Engine for Stellar

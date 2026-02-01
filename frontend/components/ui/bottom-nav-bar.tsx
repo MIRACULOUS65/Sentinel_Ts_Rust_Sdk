@@ -30,6 +30,7 @@ type BottomNavBarProps = {
 };
 
 const consoleItems = [
+    { label: "Home", icon: Home, href: "/" },
     { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
     { label: "Oracle", icon: Shield, href: "/oracle" },
     { label: "ML Engine", icon: Zap, href: "/ml-engine" },
