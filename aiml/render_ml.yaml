@@ -1,5 +1,5 @@
 services:
-  # Service 4: Streaming ML Engine
+  # Service 2: Streaming ML Engine
   - type: web
     name: sentinel-ml-engine
     env: python
