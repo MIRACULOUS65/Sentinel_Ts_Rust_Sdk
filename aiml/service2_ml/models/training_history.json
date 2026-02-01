@@ -1,0 +1,9 @@
+{
+  "epochs_trained": 200,
+  "final_train_loss": 0.49705331940167274,
+  "final_val_loss": 0.4360170252845399,
+  "best_val_loss": 0.4360170252845399,
+  "test_mae": 13.697916666666666,
+  "test_rmse": 16.448467507136744,
+  "test_accuracy": 0.8229166666666666
+}

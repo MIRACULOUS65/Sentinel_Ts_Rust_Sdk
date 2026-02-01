@@ -1,0 +1,11 @@
+services:
+  # Service 4: Streaming ML Engine
+  - type: web
+    name: sentinel-ml-engine
+    env: python
+    rootDir: aiml
+    buildCommand: pip install -r service2_ml/requirements.txt
+    startCommand: uvicorn service2_ml.ml_engine.api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.1
