@@ -1,104 +1,100 @@
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Bento3Section, { BentoItem } from "@/components/ui/bento-monochrome-1";
+import { ArrowRight, ShieldCheck, Clock } from "lucide-react";
 
 export default function OraclePage() {
-    return (
-        <div className="container py-10">
-            <div className="mx-auto max-w-4xl space-y-8">
-
-                {/* Header */}
-                <div className="space-y-4">
-                    <h1 className="text-4xl font-bold tracking-tight">Oracle Service</h1>
-                    <p className="text-xl text-muted-foreground">
-                        Cryptographic trust bridge using Ed25519 signatures. Connects our AI ML Engine to Soroban smart contracts.
-                    </p>
-                    <div className="flex gap-4">
-                        <Button variant="outline" asChild>
-                            <Link href="/docs/oracle">Read Architecture Docs</Link>
-                        </Button>
+    const bentoItems: BentoItem[] = [
+        {
+            id: "01",
+            variant: "relay",
+            meta: "Architecture",
+            title: "Trust Bridge Flow",
+            description: "Securely bridging off-chain ML insights to on-chain Soroban smart contracts via cryptographic proofs.",
+            statLabel: "Type",
+            statValue: "Generic Oracle",
+            colSpan: 2,
+            children: (
+                <div className="mt-8 flex flex-col md:flex-row items-center gap-4 justify-between bg-white/5 rounded-xl p-6 border border-white/5">
+                    <span className="text-sm font-mono text-white/70">ML Engine</span>
+                    <ArrowRight className="h-4 w-4 text-white/30 rotate-90 md:rotate-0" />
+                    <div className="flex flex-col items-center">
+                        <span className="text-sm font-bold text-white bg-white/10 px-3 py-1 rounded-full border border-white/10">Oracle (Sign)</span>
                     </div>
+                    <ArrowRight className="h-4 w-4 text-white/30 rotate-90 md:rotate-0" />
+                    <span className="text-sm font-mono text-white/70">Soroban Contract</span>
+                    <ArrowRight className="h-4 w-4 text-white/30 rotate-90 md:rotate-0" />
+                    <span className="text-sm font-bold text-white">Enforcement</span>
                 </div>
-
-                {/* Architecture Diagram */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Architecture Flow</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="rounded-md bg-muted p-4 text-center font-mono text-sm">
-                            ML Engine → Oracle (Sign) → Soroban Contract (Verify) → Enforcement
-                        </div>
-                    </CardContent>
-                </Card>
-
-                {/* Key Features */}
-                <div className="grid gap-6 md:grid-cols-3">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-lg">Cryptographic Trust</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-sm text-muted-foreground">
-                                Uses Ed25519 signatures to ensure risk scores are authentic and haven't been tampered with.
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-lg">Replay Protection</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-sm text-muted-foreground">
-                                Includes timestamps in signed payloads to prevent old risk scores from being reused maliciously.
-                            </p>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-lg">Mock & Real Data</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-sm text-muted-foreground">
-                                Supports mock data for testing and seamless transition to real ML output without code changes.
-                            </p>
-                        </CardContent>
-                    </Card>
+            )
+        },
+        {
+            id: "02",
+            variant: "orbit",
+            meta: "Security",
+            title: "Cryptographic Trust",
+            description: "Uses Ed25519 signatures to ensure risk scores are authentic and haven't been tampered with in transit.",
+            statLabel: "Curve",
+            statValue: "Ed25519",
+            colSpan: 1,
+            children: (
+                <div className="mt-6 flex items-center gap-3 border-t border-white/10 pt-4">
+                    <ShieldCheck className="h-5 w-5 text-emerald-400" />
+                    <span className="text-sm text-white/80">Verifiable On-Chain</span>
                 </div>
-
-                {/* API Info */}
-                <div className="space-y-4">
-                    <h2 className="text-2xl font-bold">API Interfaces</h2>
-                    <div className="grid gap-6 md:grid-cols-2">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="text-base font-mono">POST /sign-risk</CardTitle>
-                                <CardDescription>Signs a risk score payload.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="bg-muted font-mono text-xs p-4">
-                                {`{
+            )
+        },
+        {
+            id: "03",
+            variant: "loop",
+            meta: "Safety",
+            title: "Replay Protection",
+            description: "Includes precise timestamps in signed payloads. Old signatures are automatically rejected by the contracts.",
+            statLabel: "Window",
+            statValue: "30s",
+            colSpan: 1,
+            children: (
+                <div className="mt-6 flex items-center gap-3 border-t border-white/10 pt-4">
+                    <Clock className="h-5 w-5 text-amber-400" />
+                    <span className="text-sm text-white/80">Timestamp Enforced</span>
+                </div>
+            )
+        },
+        {
+            id: "04",
+            variant: "spark",
+            meta: "Integration",
+            title: "API Interfaces",
+            description: "Simple REST endpoints for internal services to request signatures.",
+            statLabel: "Format",
+            statValue: "JSON",
+            colSpan: 2,
+            children: (
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="rounded-lg bg-black/40 p-4 border border-white/5 font-mono text-[10px] text-white/70">
+                        <div className="mb-2 text-white/40 uppercase tracking-widest text-[9px]">POST /sign-risk</div>
+                        <pre>{`{
   "wallet": "GABCD...",
   "risk_score": 87,
-  "reason": "abnormal activity"
-}`}
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="text-base font-mono">GET /health</CardTitle>
-                                <CardDescription>Service health check.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="bg-muted font-mono text-xs p-4">
-                                {`{
-  "status": "healthy",
-  "oracle_pubkey": "ed5f..."
-}`}
-                            </CardContent>
-                        </Card>
+  "reason": "abnormal"
+}`}</pre>
+                    </div>
+                    <div className="rounded-lg bg-black/40 p-4 border border-white/5 font-mono text-[10px] text-white/70">
+                        <div className="mb-2 text-white/40 uppercase tracking-widest text-[9px]">Response</div>
+                        <pre>{`{
+  "signature": "3f8a...",
+  "payload": { ... }
+}`}</pre>
                     </div>
                 </div>
+            )
+        }
+    ];
 
-            </div>
-        </div>
+    return (
+        <Bento3Section
+            items={bentoItems}
+            title="Oracle Service"
+            subtitle="Cryptographic trust bridge using Ed25519 signatures. Connects our AI ML Engine to Soroban smart contracts."
+            badge="Security Layer"
+        />
     );
 }

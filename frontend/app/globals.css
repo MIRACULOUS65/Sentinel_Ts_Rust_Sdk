@@ -37,65 +37,65 @@
 }
 
 :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(0 0% 0%);
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(0 0% 0%);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 0%);
 
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
+    --primary: hsl(0 0% 0%);
+    --primary-foreground: hsl(0 0% 100%);
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: hsl(0 0% 96%);
+    --secondary-foreground: hsl(0 0% 0%);
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: hsl(0 0% 96%);
+    --muted-foreground: hsl(0 0% 45%);
 
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 0%;
+    --accent: hsl(0 0% 96%);
+    --accent-foreground: hsl(0 0% 0%);
 
-    --destructive: 0 0% 0%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: hsl(0 0% 0%);
+    --destructive-foreground: hsl(0 0% 100%);
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 0%;
+    --border: hsl(0 0% 90%);
+    --input: hsl(0 0% 90%);
+    --ring: hsl(0 0% 0%);
 
     --radius: 0.5rem;
 }
 
 .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
+    --background: hsl(0 0% 0%);
+    --foreground: hsl(0 0% 100%);
 
-    --card: 0 0% 0%;
-    --card-foreground: 0 0% 100%;
+    --card: hsl(0 0% 0%);
+    --card-foreground: hsl(0 0% 100%);
 
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 100%;
+    --popover: hsl(0 0% 0%);
+    --popover-foreground: hsl(0 0% 100%);
 
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
+    --primary: hsl(0 0% 100%);
+    --primary-foreground: hsl(0 0% 0%);
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: hsl(0 0% 15%);
+    --secondary-foreground: hsl(0 0% 100%);
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
+    --muted: hsl(0 0% 15%);
+    --muted-foreground: hsl(0 0% 65%);
 
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 100%;
+    --accent: hsl(0 0% 15%);
+    --accent-foreground: hsl(0 0% 100%);
 
-    --destructive: 0 0% 100%;
-    --destructive-foreground: 0 0% 0%;
+    --destructive: hsl(0 0% 100%);
+    --destructive-foreground: hsl(0 0% 0%);
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 0 0% 100%;
+    --border: hsl(0 0% 20%);
+    --input: hsl(0 0% 20%);
+    --ring: hsl(0 0% 100%);
 }
 
 @layer base {
@@ -105,5 +105,17 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+@layer utilities {
+    .animate-shine {
+        animation: shine 1s;
+    }
+}
+
+@keyframes shine {
+    100% {
+        transform: translateX(100%);
     }
 }
