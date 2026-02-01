@@ -1,18 +1,37 @@
-# Render Deployment Configuration
-# This file tells Render how to deploy Service 1 from the aiml/service1_horizon folder
-
 services:
+  # Service 1: Sentinel (Horizon Monitor)
+  - type: worker
+    name: sentinel-core
+    env: python
+    buildCommand: pip install -r aiml/service1_horizon/requirements.txt
+    startCommand: python aiml/service1_horizon/main.py
+    rootDir: .
+
+  # Service 2: Graph Engine (FastAPI)
   - type: web
-    name: stellar-horizon-fetcher
-    runtime: python
-    rootDir: aiml/service1_horizon
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: uvicorn horizon_service:app --host 0.0.0.0 --port $PORT
+    name: sentinel-graph
+    env: python
+    buildCommand: pip install -r aiml/service2_graph/requirements.txt
+    startCommand: uvicorn aiml.service2_graph.graph_service:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.8
+        value: 3.10.1
       - key: HORIZON_API_URL
         value: https://horizon-testnet.stellar.org
-    healthCheckPath: /health
 
+  # Service 3: Risk AI Gateway (FastAPI)
+  - type: web
+    name: sentinel-risk-ai
+    env: python
+    buildCommand: pip install -r aiml/service3_risk/requirements.txt
+    startCommand: uvicorn aiml.service3_risk.main:app --host 0.0.0.0 --port $PORT
 
+  # Frontend: Dashboard
+  - type: web
+    name: sentinel-dashboard
+    env: static
+    staticPublishPath: graph_frontend
+    headers:
+      - path: /*
+        name: Access-Control-Allow-Origin
+        value: "*"

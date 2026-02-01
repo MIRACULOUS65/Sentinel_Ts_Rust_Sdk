@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Live Fraud Detection Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            flex: 1;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #94a3b8;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .stat {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        canvas {
+            max-height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🚨 Live Transaction Monitor</h1>
+
+    <div class="container">
+        <div class="card">
+            <h2>Active Wallets</h2>
+            <div id="nodeCount" class="stat">0</div>
+        </div>
+        <div class="card">
+            <h2>Total Edges</h2>
+            <div id="edgeCount" class="stat">0</div>
+        </div>
+        <div class="card">
+            <h2>High Risk Nodes</h2>
+            <div id="riskCount" class="stat" style="color: #ef4444">0</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Ledger Performance (Live Transaction Volume)</h2>
+        <canvas id="timeSeriesChart"></canvas>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Live Ledger Activity</h2>
+        <div style="max-height: 300px; overflow-y: auto;">
+            <table style="width: 100%; border-collapse: collapse; color: #cbd5e1; font-size: 0.9em;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #334155; text-align: left;">
+                        <th style="padding: 8px;">Time</th>
+                        <th style="padding: 8px;">Hash</th>
+                        <th style="padding: 8px;">Type</th>
+                        <th style="padding: 8px;">Source</th>
+                        <th style="padding: 8px;">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="ledgerBody">
+                    <!-- Rows injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('timeSeriesChart').getContext('2d');
+        const timeSeriesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Processed Operations',
+                        data: [],
+                        backgroundColor: '#f97316', // Orange (Orange-500)
+                        borderColor: '#ea580c',
+                        borderWidth: 1,
+                        barPercentage: 0.8,
+                        categoryPercentage: 0.9,
+                        yAxisID: 'y'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                animation: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: { display: true, labels: { color: '#cbd5e1' } },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        titleColor: '#94a3b8',
+                        bodyColor: '#f97316',
+                        borderColor: '#334155',
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#94a3b8', maxRotation: 0, autoSkip: true, maxTicksLimit: 10 },
+                        grid: { color: '#1e293b' }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: { display: true, text: 'Ops/Sec', color: '#f97316' },
+                        grid: { color: '#334155' },
+                        ticks: { color: '#f97316', beginAtZero: true }
+                    }
+                }
+            }
+        });
+
+        async function updateGraph() {
+            try {
+                // Fetch Time Series History
+                const res = await fetch('http://localhost:8009/stats/history?seconds=60');
+                const data = await res.json();
+
+                // Fetch Basic Stats
+                // We do a quick live call just for the counters
+                const liveStats = await fetch('http://localhost:8009/graph/live?limit=1');
+                const liveData = await liveStats.json();
+
+                // Update Stats
+                document.getElementById('nodeCount').innerText = liveData.stats.total_nodes;
+                document.getElementById('edgeCount').innerText = liveData.stats.total_edges;
+
+                // Update Risk Count (Still tracking internal risk even if not plotted)
+                // We assume liveData.nodes has stats, or just use what we have
+                // Actually stats.nodes is total nodes.
+                // We'll leave Risk Count as is for now or hit 0 if we don't scan all.
+                // To support previous stats we need the logic, but for now focus on the Chart.
+
+                // Update Time Series Chart
+                timeSeriesChart.data.labels = data.labels;
+                timeSeriesChart.data.datasets[0].data = data.volume;
+
+                timeSeriesChart.update();
+
+                // Fetch Ledger History
+                const ledgerRes = await fetch('http://localhost:8009/ledger/recent');
+                const ledgerData = await ledgerRes.json();
+                updateLedgerTable(ledgerData);
+
+            } catch (e) {
+                console.error("Fetch error:", e);
+            }
+        }
+
+        function updateLedgerTable(records) {
+            const tbody = document.getElementById('ledgerBody');
+            tbody.innerHTML = '';
+
+            records.forEach(op => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid #1e293b';
+
+                // Color code type
+                let typeColor = '#cbd5e1';
+                if (op.type.includes('PAYMENT')) typeColor = '#10b981'; // Green
+                if (op.type.includes('CREATE')) typeColor = '#3b82f6'; // Blue
+                if (op.type.includes('CONTRACT')) typeColor = '#a855f7'; // Purple
+
+                tr.innerHTML = `
+                    <td style="padding: 6px; color: #94a3b8;">${op.time}</td>
+                    <td style="padding: 6px; font-family: monospace;">${op.hash}</td>
+                    <td style="padding: 6px; color: ${typeColor}; font-weight: bold;">${op.type}</td>
+                    <td style="padding: 6px; font-family: monospace;">${op.source}</td>
+                    <td style="padding: 6px;">${op.details}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Poll every 1 second
+        setInterval(updateGraph, 1000);
+        updateGraph();
+    </script>
+</body>
+
+</html>

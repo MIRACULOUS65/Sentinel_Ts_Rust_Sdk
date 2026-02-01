@@ -1,0 +1,13 @@
+services:
+  # Separate Render Service for "Service 3 Graph"
+  # Use this to verify the graph logic in isolation
+  - type: web
+    name: sentinel-graph-service3
+    env: python
+    buildCommand: pip install -r service3_graph/requirements.txt
+    startCommand: uvicorn service3_graph.graph_service:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.1
+      - key: HORIZON_API_URL
+        value: https://horizon-testnet.stellar.org
