@@ -7,10 +7,10 @@ license = "MIT"
 repository = "https://github.com/MIRACULOUS65/Sentinel"
 
 [dependencies]
-soroban-sdk = "21.0.0"
+soroban-sdk = "25.0.2"
 
 [dev-dependencies]
-soroban-sdk = { version = "21.0.0", features = ["testutils"] }
+soroban-sdk = { version = "25.0.2", features = ["testutils"] }
 
 [lib]
 path = "lib.rs"
